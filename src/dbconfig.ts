@@ -11,7 +11,9 @@ const dbConfig = {
 // module.exports=dbConfig;
 // export default dbConfig
 
+//创建连接
 var connection = mysql.createPool(dbConfig.mysql);
+//启动连接
 connection.getConnection((err,res)=>{
     if(err){
         console.log('与MySql数据库建立连接失败！');

@@ -4,20 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var morgan = require("morgan");
 //引入mysql数据库配置
-var connection = require('./dbConfig');
-//创建一个连接
-// let dbConnection=mysql.createConnection(db.mysql);
-// //启动连接
-// dbConnection.connect();
-// var connection = mysql.createPool(db.mysql);
-// connection.getConnection((err,res)=>{
-//     if(err){
-//         console.log('与MySql数据库建立连接失败！');
-//         console.log('错误信息为：'+err);
-//     }else{
-//         console.log('连接Mysql成功！',res);
-//     }
-// });
+var dbConnection = require('./dbConfig');
 //创建express后台应用
 var app = express();
 // 中间件
@@ -63,7 +50,7 @@ Router.get('/list', function (req, res) {
     };
     //sql查询
     var sql = 'SELECT * FROM cp';
-    connection.query(sql, function (err, result) {
+    dbConnection.query(sql, function (err, result) {
         if (err) {
             console.log('出现错误！', err);
             responseData = {
