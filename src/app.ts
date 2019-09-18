@@ -1,24 +1,23 @@
 //引入express框架
 import * as express from 'express';
 import * as morgan from 'morgan';
-import * as mysql from 'mysql';
 
 //引入mysql数据库配置
-let db=require('./dbConfig');
+let connection=require('./dbConfig');
 
 //创建一个连接
 // let dbConnection=mysql.createConnection(db.mysql);
 // //启动连接
 // dbConnection.connect();
-var connection = mysql.createPool(db.mysql);
-connection.getConnection((err,res)=>{
-    if(err){
-        console.log('与MySql数据库建立连接失败！');
-        console.log('错误信息为：'+err);
-    }else{
-        console.log('连接Mysql成功！',res);
-    }
-});
+// var connection = mysql.createPool(db.mysql);
+// connection.getConnection((err,res)=>{
+//     if(err){
+//         console.log('与MySql数据库建立连接失败！');
+//         console.log('错误信息为：'+err);
+//     }else{
+//         console.log('连接Mysql成功！',res);
+//     }
+// });
 
 //创建express后台应用
 let app = express();

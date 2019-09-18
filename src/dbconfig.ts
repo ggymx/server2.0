@@ -1,3 +1,4 @@
+import * as mysql from 'mysql';
 const dbConfig = {
     mysql: {
         host: "localhost", //这是数据库的地址
@@ -7,5 +8,17 @@ const dbConfig = {
         database: "mediasys"//数据库名字
     } 
 };
-module.exports=dbConfig;
+// module.exports=dbConfig;
 // export default dbConfig
+
+var connection = mysql.createPool(dbConfig.mysql);
+connection.getConnection((err,res)=>{
+    if(err){
+        console.log('与MySql数据库建立连接失败！');
+        console.log('错误信息为：'+err);
+    }else{
+        console.log('连接Mysql成功！',res);
+    }
+});
+
+module.exports=connection;
