@@ -10,7 +10,7 @@ let db=require('./dbConfig');
 // let dbConnection=mysql.createConnection(db.mysql);
 // //启动连接
 // dbConnection.connect();
-let connection = mysql.createPool(db.mysql);
+var connection = mysql.createPool(db.mysql);
 connection.getConnection((err,res)=>{
     if(err){
         console.log('与MySql数据库建立连接失败！');
