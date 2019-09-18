@@ -1,22 +1,17 @@
 //引入express框架
 import * as express from 'express';
 import * as morgan from 'morgan';
-// var express = require('express');
-// 打印日志的中间件
-var morgan = require('morgan');
-
-//引入mysql模块
-var mysql = require('mysql');
+import * as mysql from 'mysql';
 
 //引入mysql数据库配置
-var db=require('./dbConfig');
+let db=require('./dbConfig');
 
 //创建一个连接
-// var dbConnection=mysql.createConnection(db.mysql);
+// let dbConnection=mysql.createConnection(db.mysql);
 // //启动连接
 // dbConnection.connect();
-var connection = mysql.createPool(db.mysql);
-connection.getConnection(function(err,res){
+let connection = mysql.createPool(db.mysql);
+connection.getConnection((err,res)=>{
     if(err){
         console.log('与MySql数据库建立连接失败！');
         console.log('错误信息为：'+err);
@@ -26,37 +21,37 @@ connection.getConnection(function(err,res){
 });
 
 //创建express后台应用
-var app = express();
+let app = express();
 
 // 中间件
 app.use(express.static('./public'));
 app.use(morgan());
 
-app.get('/', function (req,res){
+app.get('/', (req,res)=>{
     //返回的数据
     res.end('express app start');
 });
 /******Router方式路由********/
 //创建访问的路由
-var Router = express.Router();
+let Router = express.Router();
 
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
 app.use('/post', Router);
 
 //http://127.0.0.1:18000/post/add
-Router.get('/add', function (req, res) {
+Router.get('/add', (req, res)=> {
     res.end('Router /add');
 });
 
 //http://127.0.0.1:18000/post/list
-Router.get('/list', function (req, res) {
+Router.get('/list', (req, res)=>{
     /** 
      * req.query  获取get参数
      * req.body   获取post参数
     */
     console.log('接收到的请求数据-------',req.query);
-       var posts=[{
+       let posts=[{
             title:'测试1',
             author:'葛干',
             createtime:'2019-2-15',
@@ -69,13 +64,13 @@ Router.get('/list', function (req, res) {
             likeCount:200
         }
     ];
-    var responseData={
+    let responseData={
         msg:'ok',
         posts
     }
     //sql查询
-    var sql='SELECT * FROM cp';
-    connection.query(sql,function(err,result){
+    let sql='SELECT * FROM cp';
+    connection.query(sql,(err,result)=>{
         if(err){
             console.log('出现错误！',err);
             responseData={
@@ -84,7 +79,7 @@ Router.get('/list', function (req, res) {
             }
         }else{
         // resolve();
-         var list =JSON.parse(JSON.stringify(result));
+         let list =JSON.parse(JSON.stringify(result));
          console.log('查询list---：',list);
          responseData.posts=list;
         //  res.send(responseData);
@@ -99,10 +94,10 @@ Router.get('/list', function (req, res) {
 // 适合定义RESTful API
 //http://127.0.0.1:18000/article
 app.route('/article')
-    .get(function (req, res) {
+    .get((req, res)=>{
         res.end('route /articl get\n');
     })
-    .post(function (req, res) {
+    .post((req, res)=>{
         res.end('route /articl post');
     });
 
@@ -112,17 +107,17 @@ app.route('/article')
  * next:函数下一步要执行的参数
  * newsId：路由参数
  * */
-app.param('newsId', function (req, res, next, newsId) {
+app.param('newsId', (req, res, next, newsId)=> {
     console.log('param newsid:'+newsId);
     (req as any).newsId = newsId;
     next();
 });
 
-app.get('/news/:newsId', function (req, res) {
+app.get('/news/:newsId', (req, res)=>{
     console.log('监听请求：/news/:newsId:');
     res.end('newsId:'+(req as any).newsId+'\n');
 });
 
-app.listen(1900, function afterListen() {
+app.listen(1900, ()=>{
     console.log('访问URL：http://127.0.0.1:1900');
 });

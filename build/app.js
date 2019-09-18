@@ -2,15 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 //引入express框架
 var express = require("express");
-// var express = require('express');
-// 打印日志的中间件
-var morgan = require('morgan');
-//引入mysql模块
-var mysql = require('mysql');
+var morgan = require("morgan");
+var mysql = require("mysql");
 //引入mysql数据库配置
 var db = require('./dbConfig');
 //创建一个连接
-// var dbConnection=mysql.createConnection(db.mysql);
+// let dbConnection=mysql.createConnection(db.mysql);
 // //启动连接
 // dbConnection.connect();
 var connection = mysql.createPool(db.mysql);
@@ -111,6 +108,6 @@ app.get('/news/:newsId', function (req, res) {
     console.log('监听请求：/news/:newsId:');
     res.end('newsId:' + req.newsId + '\n');
 });
-app.listen(1900, function afterListen() {
+app.listen(1900, function () {
     console.log('访问URL：http://127.0.0.1:1900');
 });

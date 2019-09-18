@@ -1,4 +1,4 @@
-var dbConfig = {
+const dbConfig = {
     mysql: {
         host: "localhost", //这是数据库的地址
         port: "3308",
@@ -8,3 +8,4 @@ var dbConfig = {
     } 
 };
 module.exports=dbConfig;
+// export default dbConfig

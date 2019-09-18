@@ -8,3 +8,4 @@ var dbConfig = {
     }
 };
 module.exports = dbConfig;
+// export default dbConfig
