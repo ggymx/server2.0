@@ -121,6 +121,6 @@ app.get('/news/:newsId', function (req, res) {
     res.end('newsId:'+req.newsId+'\n');
 });
 
-app.listen(18000, function afterListen() {
-    console.log('访问URL：http://127.0.0.1:18000');
+app.listen(1900, function afterListen() {
+    console.log('访问URL：http://127.0.0.1:1900');
 });

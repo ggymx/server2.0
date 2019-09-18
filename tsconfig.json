@@ -1,4 +1,4 @@
-{
+{     //ctrl+shift+b 指定tsc按此配置文件编译文件
     "compilerOptions": {
         "target": "es5",   //编译目标
         "module": "commonjs",
