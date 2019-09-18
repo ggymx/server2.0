@@ -1,5 +1,7 @@
 //引入express框架
-var express = require('express');
+import * as express from 'express';
+import * as morgan from 'morgan';
+// var express = require('express');
 // 打印日志的中间件
 var morgan = require('morgan');
 
@@ -112,13 +114,13 @@ app.route('/article')
  * */
 app.param('newsId', function (req, res, next, newsId) {
     console.log('param newsid:'+newsId);
-    req.newsId = newsId;
+    (req as any).newsId = newsId;
     next();
 });
 
 app.get('/news/:newsId', function (req, res) {
     console.log('监听请求：/news/:newsId:');
-    res.end('newsId:'+req.newsId+'\n');
+    res.end('newsId:'+(req as any).newsId+'\n');
 });
 
 app.listen(1900, function afterListen() {

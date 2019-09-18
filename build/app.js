@@ -1,5 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 //引入express框架
-var express = require('express');
+var express = require("express");
+// var express = require('express');
 // 打印日志的中间件
 var morgan = require('morgan');
 //引入mysql模块
