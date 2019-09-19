@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node ./build/app.js",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "dev": "nodemon build/app.js" 
   },
   "keywords": [],
   "author": "GeGan",
@@ -18,6 +19,7 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.2"
   }
 }

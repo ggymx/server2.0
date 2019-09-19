@@ -20,42 +20,44 @@ post_router.get('/list', (req, res)=>{
      * req.body   获取post参数
     */
     console.log('接收到的请求数据-------',req.query);
-       let posts=[{
-            title:'测试1',
-            author:'葛干',
-            createtime:'2019-2-15',
-            likeCount:100
-        },
-        {
-            title:'测试2',
-            author:'杨梦雪',
-            createtime:'2019-8-15',
-            likeCount:200
-        }
-    ];
-    let responseData={
-        msg:'ok',
-        posts
-    }
+    //    let posts=[{
+    //         title:'测试1',
+    //         author:'葛干',
+    //         createtime:'2019-2-15',
+    //         likeCount:100
+    //     },
+    //     {
+    //         title:'测试2',
+    //         author:'杨梦雪',
+    //         createtime:'2019-8-15',
+    //         likeCount:200
+    //     }
+    // ];
+    // let responseData={
+    //     msg:'ok',
+    //     posts
+    // }
     //sql查询
     let sql='SELECT * FROM cp';
     dbConnection.query(sql,(err,result)=>{
         if(err){
             console.log('出现错误！',err);
-            responseData={
-                msg:'err',
-                posts:null
-            }
+            // responseData={
+            //     msg:'err',
+            //     posts:null
+            // }
+            res.send(err)
         }else{
         // resolve();
          let list =JSON.parse(JSON.stringify(result));
-         console.log('查询list---：',list);
-         responseData.posts=list;
+         console.log('查询list---：',typeof list);
+        //  responseData.posts=list;
+           res.send(list)
         //  res.send(responseData);
         }
     });
     // res.end('Router /list');
-    res.send(responseData);
+    // res.send(responseData);
 });
 
 module.exports=post_router;

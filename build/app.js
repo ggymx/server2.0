@@ -42,6 +42,12 @@ app.get('/news/:newsId', function (req, res) {
     console.log('监听请求：/news/:newsId:');
     res.end('newsId:' + req.newsId + '\n');
 });
-app.listen(1900, function () {
-    console.log('访问URL：http://127.0.0.1:1900');
+app.listen(1100, function () {
+    console.log('访问URL：http://127.0.0.1:1100');
 });
+// var debug = require('debug')('my-application'); // debug模块
+// app.set('port', process.env.PORT || 3000); // 设定监听端口
+// //启动监听
+// var server = app.listen(app.get('port'), function() {
+//   debug('Express server listening on port ' + server.address().port);
+// });
