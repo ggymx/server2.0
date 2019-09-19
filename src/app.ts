@@ -3,8 +3,8 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 
 //引入mysql数据库配置
-let dbConnection=require('./dbConfig');
-let Router=require('./route/router');
+// let dbConnection=require('./dbConfig');
+let post_router=require('./route/router');
 
 //创建express后台应用
 let app = express();
@@ -21,7 +21,7 @@ app.get('/', (req,res)=>{
 
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
-app.use('/post', Router);
+app.use('/post', post_router);
 
 
 // 适合定义RESTful API
