@@ -1,6 +1,6 @@
 //项目的解释文档
 npm init -y 生成package.json
-
+========================================
 npm i @types/node --save  :node的类型定义文件，使用类型定义文件的作用是使你能在typescript中使用已有的javascript的库
 tsconfig.json：ts编译js的配置文件
 {     //ctrl+shift+b 指定tsc按此配置文件编译文件
@@ -23,6 +23,7 @@ tsconfig.json：ts编译js的配置文件
 再次执行ctrl+shift+b对该文件进行编译，首次执行会提升缺少.vscode/tasks.json文件，创建它并继续执行ctrl+shift+b，
 此时根据tsconfig.json的配置，会在build目录下生成编译后的javascript代码
 
+========================================
 npm install @types/express --save:express的类型定义文件(可以用typescript的代码来使用express的API)
 配置npm 命令
  "scripts": {
@@ -31,6 +32,7 @@ npm install @types/express --save:express的类型定义文件(可以用typescri
     "tsc": "tsc"    //编译ts
   }
 
+========================================
 npm install -g nodemon npm install nodemon --save  安装nodemon 热更新服务
 nodemon.json：热更新配置文件
 {
@@ -53,6 +55,8 @@ nodemon.json：热更新配置文件
     "ext": "js json"    //ext-监控指定的后缀文件名
 }
 
+========================================
+使用body-parser
 POST 请求在 express 中不能直接获得，可以使用 body-parser 模块。使用后，将可以用 req.body 得到参数。但是如果表单中含有文件上传，那么还是需要使用 formidable 模块。
 npm install body-parser 
 // parse application/x-www-form-urlencoded  
