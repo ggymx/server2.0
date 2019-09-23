@@ -5,6 +5,7 @@ import * as morgan from 'morgan';
 //引入mysql数据库配置
 let dbConnection=require('./dbConfig');
 let post_router=require('./route/router');
+let bodyParser=require('body-parser');
 
 //创建express后台应用
 let app = express();
@@ -12,6 +13,12 @@ let app = express();
 // 中间件
 app.use(express.static('./public'));
 app.use(morgan());
+
+//POST请求在 express 中不能直接获得，需要安装 body-parser模块
+  // parse application/x-www-form-urlencoded  
+  app.use(bodyParser.urlencoded({ extended: false })); //这行代码也必须添加   
+  // parse application/json  
+  app.use(bodyParser.json()); 
 
 
 app.all('*',function (req, res, next) {
@@ -32,10 +39,11 @@ app.get('/', (req,res)=>{
 });
 
 //http://127.0.0.1:1360/login?username='gg'&&pwd='gegan'
-app.get('/login',(req,res)=>{
+app.post('/login',(req,res)=>{
         console.log('登录请求-----',req.body);
-        let username=(req.query as any).username
-        let pwd=(req.query as any).pwd;
+        // return;
+        let username=(req.body as any).username
+        let pwd=(req.body as any).pwd;
         if(!username || !pwd){
             console.log('未获取有效参数！-----');
             res.json({msg:'缺失username或pwd'});

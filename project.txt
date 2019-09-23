@@ -52,3 +52,10 @@ nodemon.json：热更新配置文件
     },
     "ext": "js json"    //ext-监控指定的后缀文件名
 }
+
+POST 请求在 express 中不能直接获得，可以使用 body-parser 模块。使用后，将可以用 req.body 得到参数。但是如果表单中含有文件上传，那么还是需要使用 formidable 模块。
+npm install body-parser 
+// parse application/x-www-form-urlencoded  
+app.use(bodyParser.urlencoded({ extended: false }))    
+// parse application/json  
+app.use(bodyParser.json())   

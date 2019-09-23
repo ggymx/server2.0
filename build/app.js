@@ -6,11 +6,17 @@ var morgan = require("morgan");
 //引入mysql数据库配置
 var dbConnection = require('./dbConfig');
 var post_router = require('./route/router');
+var bodyParser = require('body-parser');
 //创建express后台应用
 var app = express();
 // 中间件
 app.use(express.static('./public'));
 app.use(morgan());
+//POST请求在 express 中不能直接获得，需要安装 body-parser模块
+// parse application/x-www-form-urlencoded  
+app.use(bodyParser.urlencoded({ extended: false })); //这行代码也必须添加   
+// parse application/json  
+app.use(bodyParser.json());
 app.all('*', function (req, res, next) {
     //解决跨域
     res.header("Access-Control-Allow-Origin", "*");
@@ -27,10 +33,11 @@ app.get('/', function (req, res) {
     //   res.sendFile('D:/server2.0/build/view/index.html');
 });
 //http://127.0.0.1:1360/login?username='gg'&&pwd='gegan'
-app.get('/login', function (req, res) {
+app.post('/login', function (req, res) {
     console.log('登录请求-----', req.body);
-    var username = req.query.username;
-    var pwd = req.query.pwd;
+    // return;
+    var username = req.body.username;
+    var pwd = req.body.pwd;
     if (!username || !pwd) {
         console.log('未获取有效参数！-----');
         res.json({ msg: '缺失username或pwd' });
