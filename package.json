@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node ./build/app.js",
     "tsc": "tsc",
-    "dev": "nodemon build/app.js" 
+    "nodemon": "nodemon build/app.js" 
   },
   "keywords": [],
   "author": "GeGan",
