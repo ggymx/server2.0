@@ -89,8 +89,8 @@ app.get('/news/:newsId', function (req, res) {
     console.log('监听请求：/news/:newsId:');
     res.end('newsId:' + req.newsId + '\n');
 });
-app.listen(8080, function () {
-    console.log('访问URL：http://127.0.0.1:8080');
+app.listen(8060, function () {
+    console.log('访问URL：http://127.0.0.1:8060');
 });
 // var debug = require('debug')('my-application'); // debug模块
 // app.set('port', process.env.PORT || 3000); // 设定监听端口

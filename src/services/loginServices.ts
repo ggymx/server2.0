@@ -4,9 +4,17 @@ import LoginDao from '../dao/loginDao';
 let loginDao=new LoginDao();
 class LoginServices{
     /**处理用户登录 */
-    login(req,res){
-        console.log('登录请求-----',req.body);
-        loginDao.selectUserByName(req,res);
+    login(request,response){
+        let username=(request.body as any).username
+        let pwd=(request.body as any).pwd;
+        console.log('登录请求-----',request.body);
+        loginDao.selectUserByName(username,pwd).then(res=>{
+            console.log('Promise------res',res);
+            response.json(res)
+        }).catch(err=>{
+            console.log('Promise------err',err)
+            response.json(err)
+        });
 }
 }
 
