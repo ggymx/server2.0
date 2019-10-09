@@ -1,6 +1,7 @@
 //引入express框架
 import * as express from 'express';
 import * as morgan from 'morgan';
+import LoginServices from './services/loginServices';
 
 //引入mysql数据库配置
 let dbConnection=require('./dbConfig');
@@ -20,6 +21,7 @@ app.use(morgan());
   // parse application/json  
   app.use(bodyParser.json()); 
 
+let loginServices=new LoginServices();
 
 app.all('*',function (req, res, next) {
     //解决跨域
@@ -39,34 +41,34 @@ app.get('/', (req,res)=>{
 });
 
 //http://127.0.0.1:1360/login?username='gg'&&pwd='gegan'
-app.post('/login',(req,res)=>{
-        console.log('登录请求-----',req.body);
-        // return;
-        let username=(req.body as any).username
-        let pwd=(req.body as any).pwd;
-        if(!username || !pwd){
-            console.log('未获取有效参数！-----');
-            res.json({msg:'缺失username或pwd'});
-            // res.end('');
-            return;
-        }
-        console.log('用户名：',typeof username);
-        console.log('密码：',pwd);
-        let sql=`SELECT COUNT(*),userId FROM user_test WHERE username='${username}' AND pwd='${pwd}'`;
-        console.log('sql语句-----',sql);
-        dbConnection.query(sql,(err,result)=>{
-            if(err){
-                console.log('出现异常----',err);
-            }else{
-                console.log('查询结果-----',result[0].userId);
-                let userId=result[0].userId
-                res.json({msg:'ok',userId});//json可以实现跨域（同源策略不拦截script）缺点：只适用于get请求
-                // res.json({msg:'ok',userId})
-            }
-        })
+// app.post('/login',(req,res)=>{
+//         console.log('登录请求-----',req.body);
+//         // return;
+//         let username=(req.body as any).username
+//         let pwd=(req.body as any).pwd;
+//         if(!username || !pwd){
+//             console.log('未获取有效参数！-----');
+//             res.json({msg:'缺失username或pwd'});
+//             // res.end('');
+//             return;
+//         }
+//         console.log('用户名：',typeof username);
+//         console.log('密码：',pwd);
+//         let sql=`SELECT COUNT(*),userId FROM user_test WHERE username='${username}' AND pwd='${pwd}'`;
+//         console.log('sql语句-----',sql);
+//         dbConnection.query(sql,(err,result)=>{
+//             if(err){
+//                 console.log('出现异常----',err);
+//             }else{
+//                 console.log('查询结果-----',result[0].userId);
+//                 let userId=result[0].userId
+//                 res.json({msg:'ok',userId});//json可以实现跨域（同源策略不拦截script）缺点：只适用于get请求
+//                 // res.json({msg:'ok',userId})
+//             }
+//         })
         
-});
-
+// });
+app.post('/login',loginServices.login);
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
 app.use('/post', post_router);
@@ -99,8 +101,8 @@ app.get('/news/:newsId', (req, res)=>{
     res.end('newsId:'+(req as any).newsId+'\n');
 });
 
-app.listen(1800, ()=>{
-    console.log('访问URL：http://127.0.0.1:1800');
+app.listen(8080, ()=>{
+    console.log('访问URL：http://127.0.0.1:8080');
 });
 
 

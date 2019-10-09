@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //引入express框架
 var express = require("express");
 var morgan = require("morgan");
+var loginServices_1 = require("./services/loginServices");
 //引入mysql数据库配置
 var dbConnection = require('./dbConfig');
 var post_router = require('./route/router');
@@ -17,6 +18,7 @@ app.use(morgan());
 app.use(bodyParser.urlencoded({ extended: false })); //这行代码也必须添加   
 // parse application/json  
 app.use(bodyParser.json());
+var loginServices = new loginServices_1.default();
 app.all('*', function (req, res, next) {
     //解决跨域
     res.header("Access-Control-Allow-Origin", "*");
@@ -33,33 +35,33 @@ app.get('/', function (req, res) {
     //   res.sendFile('D:/server2.0/build/view/index.html');
 });
 //http://127.0.0.1:1360/login?username='gg'&&pwd='gegan'
-app.post('/login', function (req, res) {
-    console.log('登录请求-----', req.body);
-    // return;
-    var username = req.body.username;
-    var pwd = req.body.pwd;
-    if (!username || !pwd) {
-        console.log('未获取有效参数！-----');
-        res.json({ msg: '缺失username或pwd' });
-        // res.end('');
-        return;
-    }
-    console.log('用户名：', typeof username);
-    console.log('密码：', pwd);
-    var sql = "SELECT COUNT(*),userId FROM user_test WHERE username='" + username + "' AND pwd='" + pwd + "'";
-    console.log('sql语句-----', sql);
-    dbConnection.query(sql, function (err, result) {
-        if (err) {
-            console.log('出现异常----', err);
-        }
-        else {
-            console.log('查询结果-----', result[0].userId);
-            var userId = result[0].userId;
-            res.json({ msg: 'ok', userId: userId }); //json可以实现跨域（同源策略不拦截script）缺点：只适用于get请求
-            // res.json({msg:'ok',userId})
-        }
-    });
-});
+// app.post('/login',(req,res)=>{
+//         console.log('登录请求-----',req.body);
+//         // return;
+//         let username=(req.body as any).username
+//         let pwd=(req.body as any).pwd;
+//         if(!username || !pwd){
+//             console.log('未获取有效参数！-----');
+//             res.json({msg:'缺失username或pwd'});
+//             // res.end('');
+//             return;
+//         }
+//         console.log('用户名：',typeof username);
+//         console.log('密码：',pwd);
+//         let sql=`SELECT COUNT(*),userId FROM user_test WHERE username='${username}' AND pwd='${pwd}'`;
+//         console.log('sql语句-----',sql);
+//         dbConnection.query(sql,(err,result)=>{
+//             if(err){
+//                 console.log('出现异常----',err);
+//             }else{
+//                 console.log('查询结果-----',result[0].userId);
+//                 let userId=result[0].userId
+//                 res.json({msg:'ok',userId});//json可以实现跨域（同源策略不拦截script）缺点：只适用于get请求
+//                 // res.json({msg:'ok',userId})
+//             }
+//         })
+// });
+app.post('/login', loginServices.login);
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
 app.use('/post', post_router);
@@ -87,8 +89,8 @@ app.get('/news/:newsId', function (req, res) {
     console.log('监听请求：/news/:newsId:');
     res.end('newsId:' + req.newsId + '\n');
 });
-app.listen(1800, function () {
-    console.log('访问URL：http://127.0.0.1:1800');
+app.listen(8080, function () {
+    console.log('访问URL：http://127.0.0.1:8080');
 });
 // var debug = require('debug')('my-application'); // debug模块
 // app.set('port', process.env.PORT || 3000); // 设定监听端口
