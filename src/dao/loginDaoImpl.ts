@@ -6,7 +6,7 @@ import Message from './domain/Message';
 import LoginDao from './LoginDao';
 class LoginDaoImpl implements LoginDao{
     // 通过用户名和密码查询用户   Promise<Message<User>>只约束resolve函数 
-    selectUserByName(username,pwd):Promise<Message<User>>{
+    public selectUserByName(username,pwd):Promise<Message<User>>{
         return new Promise((resolve,reject)=>{
             if(!username || !pwd){
                 console.log('未获取有效参数！-----');

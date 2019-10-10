@@ -1,9 +1,12 @@
 // //引入mysql数据库配置
 // let dbConnection=require('../dbConfig');
-import LoginDaoImpl from '../dao/LoginDaoImpl';
-let loginDaoImpl=new LoginDaoImpl();
+// import LoginDao from '../dao/LoginDao';
+// import LoginDaoImpl from '../dao/LoginDaoImpl';
+import DaoFactory from '../factory/DaoFactory';
+let loginDaoImpl=DaoFactory.produceLoginDao();
 class LoginServices{
     /**处理用户登录 */
+    // loginDaoImpl:LoginDao=new LoginDaoImpl();
     login(request,response){
         let username=(request.body as any).username
         let pwd=(request.body as any).pwd;
