@@ -1,5 +1,4 @@
 //引入mysql数据库配置
-// let dbConnection=require('../dbConfig');
 import dbConnection from '../DBConnection';
 import User from './domain/User';
 import Message from './domain/Message';

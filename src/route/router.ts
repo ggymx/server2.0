@@ -1,7 +1,8 @@
 import * as express from 'express';
 
 //引入mysql数据库配置
-let dbConnection=require('../dbConfig');
+import dbConnection from '../DBConnection';
+// let dbConnection=require('../dbConfig');
 
 /******Router方式路由********/
 //创建访问的路由

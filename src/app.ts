@@ -4,7 +4,7 @@ import * as morgan from 'morgan';
 import LoginServices from './services/LoginService';
 
 //引入mysql数据库配置
-let dbConnection=require('./dbConfig');
+// let dbConnection=require('./dbConfig');
 let post_router=require('./route/router');
 let bodyParser=require('body-parser');
 

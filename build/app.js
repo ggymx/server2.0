@@ -5,7 +5,7 @@ var express = require("express");
 var morgan = require("morgan");
 var LoginService_1 = require("./services/LoginService");
 //引入mysql数据库配置
-var dbConnection = require('./dbConfig');
+// let dbConnection=require('./dbConfig');
 var post_router = require('./route/router');
 var bodyParser = require('body-parser');
 //创建express后台应用
