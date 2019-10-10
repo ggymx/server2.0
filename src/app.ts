@@ -1,7 +1,7 @@
 //引入express框架
 import * as express from 'express';
 import * as morgan from 'morgan';
-import LoginServices from './services/loginServices';
+import LoginServices from './services/LoginService';
 
 //引入mysql数据库配置
 let dbConnection=require('./dbConfig');

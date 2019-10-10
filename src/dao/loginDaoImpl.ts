@@ -1,9 +1,11 @@
 //引入mysql数据库配置
-let dbConnection=require('../dbConfig');
+// let dbConnection=require('../dbConfig');
+import dbConnection from '../DBConnection';
 import User from './domain/User';
 import Message from './domain/Message';
-class LoginDao{
-    //通过用户名和密码查询用户   Promise<Message<User>>只约束resolve函数 
+import LoginDao from './LoginDao';
+class LoginDaoImpl implements LoginDao{
+    // 通过用户名和密码查询用户   Promise<Message<User>>只约束resolve函数 
     selectUserByName(username,pwd):Promise<Message<User>>{
         return new Promise((resolve,reject)=>{
             if(!username || !pwd){
@@ -43,4 +45,4 @@ class LoginDao{
     }
 }
 
-export default LoginDao;
+export default LoginDaoImpl;

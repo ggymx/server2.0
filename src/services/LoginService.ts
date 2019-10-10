@@ -1,6 +1,6 @@
 // //引入mysql数据库配置
 // let dbConnection=require('../dbConfig');
-import LoginDaoImpl from '../dao/loginDaoImpl';
+import LoginDaoImpl from '../dao/LoginDaoImpl';
 let loginDaoImpl=new LoginDaoImpl();
 class LoginServices{
     /**处理用户登录 */

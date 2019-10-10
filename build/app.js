@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //引入express框架
 var express = require("express");
 var morgan = require("morgan");
-var loginServices_1 = require("./services/loginServices");
+var LoginService_1 = require("./services/LoginService");
 //引入mysql数据库配置
 var dbConnection = require('./dbConfig');
 var post_router = require('./route/router');
@@ -18,7 +18,7 @@ app.use(morgan());
 app.use(bodyParser.urlencoded({ extended: false })); //这行代码也必须添加   
 // parse application/json  
 app.use(bodyParser.json());
-var loginServices = new loginServices_1.default();
+var loginServices = new LoginService_1.default();
 app.all('*', function (req, res, next) {
     //解决跨域
     res.header("Access-Control-Allow-Origin", "*");
