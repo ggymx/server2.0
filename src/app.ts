@@ -5,7 +5,8 @@ import LoginServices from './services/LoginService';
 
 //引入mysql数据库配置
 // let dbConnection=require('./dbConfig');
-let post_router=require('./route/router');
+//Inject路由
+let injectR=require('./route/router');
 let bodyParser=require('body-parser');
 
 //创建express后台应用
@@ -44,7 +45,7 @@ app.get('/', (req,res)=>{
 app.post('/login',loginServices.login);
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
-app.use('/post', post_router);
+app.use('/inject', injectR);
 
 
 // 适合定义RESTful API
@@ -74,8 +75,8 @@ app.get('/news/:newsId', (req, res)=>{
     res.end('newsId:'+(req as any).newsId+'\n');
 });
 
-app.listen(8060, ()=>{
-    console.log('访问URL：http://127.0.0.1:8060');
+app.listen(8070, ()=>{
+    console.log('访问URL：http://127.0.0.1:8070');
 });
 
 

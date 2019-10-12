@@ -6,7 +6,8 @@ var morgan = require("morgan");
 var LoginService_1 = require("./services/LoginService");
 //引入mysql数据库配置
 // let dbConnection=require('./dbConfig');
-var post_router = require('./route/router');
+//Inject路由
+var injectR = require('./route/router');
 var bodyParser = require('body-parser');
 //创建express后台应用
 var app = express();
@@ -38,7 +39,7 @@ app.get('/', function (req, res) {
 app.post('/login', loginServices.login);
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
-app.use('/post', post_router);
+app.use('/inject', injectR);
 // 适合定义RESTful API
 //http://127.0.0.1:18000/article
 app.route('/article')
@@ -63,8 +64,8 @@ app.get('/news/:newsId', function (req, res) {
     console.log('监听请求：/news/:newsId:');
     res.end('newsId:' + req.newsId + '\n');
 });
-app.listen(8060, function () {
-    console.log('访问URL：http://127.0.0.1:8060');
+app.listen(8070, function () {
+    console.log('访问URL：http://127.0.0.1:8070');
 });
 // var debug = require('debug')('my-application'); // debug模块
 // app.set('port', process.env.PORT || 3000); // 设定监听端口

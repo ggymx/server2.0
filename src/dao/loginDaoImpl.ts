@@ -4,7 +4,11 @@ import User from './domain/User';
 import Message from './domain/Message';
 import LoginDao from './LoginDao';
 class LoginDaoImpl implements LoginDao{
-    // 通过用户名和密码查询用户   Promise<Message<User>>只约束resolve函数 
+    private constructor(){}
+    public static getInstance(){
+        return new LoginDaoImpl();
+    }
+    // 通过用户名和密码查询用户   Promise<Message<User>>只约束resolve函数 s
     public selectUserByName(username,pwd):Promise<Message<User>>{
         return new Promise((resolve,reject)=>{
             if(!username || !pwd){
