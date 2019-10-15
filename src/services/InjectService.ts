@@ -2,14 +2,18 @@ import DaoFactory from '../factory/DaoFactory';
 let injectDaoImpl=DaoFactory.produceInjectDao();
 class InjectService{
     //查询状态
-    queryInject(request,response){
-        injectDaoImpl.selectInjects().then(res=>{
-            console.log('查询注入状态------',res)
-            response.json(res);
-        }).catch(err=>{
-            console.log('出现错误-------',err);
-            response.json(err);
-        })
+    // queryInject(request,response){
+    //     injectDaoImpl.selectInjects().then(res=>{
+    //         console.log('查询注入状态------',res)
+    //         response.json(res);
+    //     }).catch(err=>{
+    //         console.log('出现错误-------',err);
+    //         response.json(err);
+    //     })
+    // }
+    async queryInject(request,response){
+        let data=await injectDaoImpl.selectInjects();
+        response.json(data);
     }
     //增加状态
     addInject(){}

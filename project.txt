@@ -63,3 +63,5 @@ npm install body-parser
 app.use(bodyParser.urlencoded({ extended: false }))    
 // parse application/json  
 app.use(bodyParser.json())   
+========================================
+三层设计模式：dao层，service层 使用工厂设计模式和单例模式 使用Promise和异步关键字（async和await）
