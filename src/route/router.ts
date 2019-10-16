@@ -8,6 +8,7 @@ import dbConnection from '../DBConnection';
 let injectR = express.Router();
 let injectService = new InjectService(); 
 //http://127.0.0.1:18000/post/add
+injectR.get('/query',injectService.queryInject);
 injectR.get('/add', (req, res)=> {
     console.log('add请求-------');
     res.end('Router /add');
@@ -29,8 +30,5 @@ injectR.get('/add', (req, res)=> {
 //         }
 //     });
 // });
-
-injectR.get('/query',injectService.queryInject);
-
 
 module.exports=injectR;

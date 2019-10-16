@@ -12,7 +12,11 @@ class InjectService{
     //     })
     // }
     async queryInject(request,response){
-        let data=await injectDaoImpl.selectInjects();
+        let data=await injectDaoImpl.selectInjects().catch(err=>{
+            console.log('err------',err);
+            response.json(err);
+            return;
+        });
         response.json(data);
     }
     //增加状态

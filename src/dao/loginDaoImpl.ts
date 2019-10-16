@@ -13,7 +13,7 @@ class LoginDaoImpl implements LoginDao{
         return new Promise((resolve,reject)=>{
             if(!username || !pwd){
                 console.log('未获取有效参数！-----');
-                reject({msg:'缺失username或pwd',stCode:100});
+                reject({msg:'缺失username或password',stCode:100});
                 // res.end('');
                 return;
             }
@@ -40,7 +40,7 @@ class LoginDaoImpl implements LoginDao{
                     // res.json({msg:'ok',userId})
                 }else{
                     console.log('出现异常----',err);
-                    reject({msg:err,data:null,stCode:500});
+                    reject({msg:'err',data:null,stCode:500});
                 }
             })
         });

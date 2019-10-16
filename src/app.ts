@@ -27,8 +27,18 @@ let loginServices=new LoginServices();
 app.all('*',function (req, res, next) {
     //解决跨域
     res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    // res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    //为什么vue启动得服务还需要加上这句
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    //预检请求发送的间隔
+    res.header("Access-Control-Max-Age", "3600");
+    //允许远程网页嵌套iframe
+    res.header("x-frame-options","SAMEORIGIN");
+    //安全考虑，不在客户端显示服务器信息
+    res.header("X-Powered-By", ' 3.2.1')
+    res.header("Access-Control-Allow-Methods","POST,GET");
+     // res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    // res.header("Access-Control-Allow-Headers", " X-Requested-With");
+   
     // res.header("X-Powered-By",' 3.2.1')
     // res.header("Content-Type", "application/json;charset=utf-8");
     next();
