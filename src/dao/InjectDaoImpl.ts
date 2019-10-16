@@ -3,6 +3,53 @@ import InjectDao from '../dao/InjectDao';
 import Message from './domain/Message';
 import Inject from './domain/Inject';
 class InjectDaoImpl implements InjectDao{
+  //表列名：用于前端表格列绑定
+  private static InjectColumns=[
+    {
+      "prop": "id",
+      "label": "ID"
+    },
+    {
+      "prop": "cpId",
+      "label": "cpId"
+    },
+    {
+      "prop": "movieId",
+      "label": "movieId"
+    },
+    {
+      "prop": "correlateId",
+      "label": "correlateId"
+    },
+    {
+      "prop": "injStatus",
+      "label": "注入状态"
+    },
+    {
+      "prop": "detail",
+      "label": "detail"
+    },
+    {
+      "prop": "platform",
+      "label": "平台"
+    },
+    {
+      "prop": "path",
+      "label": "path"
+    },
+    {
+      "prop": "crDate",
+      "label": "创建时间"
+    },
+    {
+      "prop": "upDate",
+      "label": "更新时间"
+    },
+    {
+      "prop": "infoUrl",
+      "label": "infoUrl"
+    }
+  ]
     private constructor(){}
     public static getInstance(){
         return new InjectDaoImpl();
@@ -13,57 +60,10 @@ class InjectDaoImpl implements InjectDao{
             let sql='SELECT * FROM inject_test';
             dbConnection.query(sql,(err,result)=>{
                 if(!err){
-                    //返回表格中绑定的列名
-                    let ijTree=[
-                        {
-                          "prop": "id",
-                          "label": "ID"
-                        },
-                        {
-                          "prop": "cpId",
-                          "label": "cpId"
-                        },
-                        {
-                          "prop": "movieId",
-                          "label": "movieId"
-                        },
-                        {
-                          "prop": "correlateId",
-                          "label": "correlateId"
-                        },
-                        {
-                          "prop": "injStatus",
-                          "label": "注入状态"
-                        },
-                        {
-                          "prop": "detail",
-                          "label": "detail"
-                        },
-                        {
-                          "prop": "platform",
-                          "label": "平台"
-                        },
-                        {
-                          "prop": "path",
-                          "label": "path"
-                        },
-                        {
-                          "prop": "crDate",
-                          "label": "创建时间"
-                        },
-                        {
-                          "prop": "upDate",
-                          "label": "更新时间"
-                        },
-                        {
-                          "prop": "infoUrl",
-                          "label": "infoUrl"
-                        }
-                      ]
                     //将查到的数据重新包装
                     let resultVo={
                       ijArr:result,
-                      ijTree
+                      ijTree:InjectDaoImpl.InjectColumns
                     }
                     resolve(new Message({msg:'ok',data:resultVo,stCode:200}))
                     //  resolve(result);
@@ -83,56 +83,9 @@ class InjectDaoImpl implements InjectDao{
         let sql1=`SELECT * FROM inject_test limit ${limit} offset ${limit*(cursor-1)}`;
         dbConnection.query(sql1,(err,result)=>{
             if(!err){
-                //返回表格中绑定的列名
-                let ijTree=[
-                    {
-                      "prop": "id",
-                      "label": "ID"
-                    },
-                    {
-                      "prop": "cpId",
-                      "label": "cpId"
-                    },
-                    {
-                      "prop": "movieId",
-                      "label": "movieId"
-                    },
-                    {
-                      "prop": "correlateId",
-                      "label": "correlateId"
-                    },
-                    {
-                      "prop": "injStatus",
-                      "label": "注入状态"
-                    },
-                    {
-                      "prop": "detail",
-                      "label": "detail"
-                    },
-                    {
-                      "prop": "platform",
-                      "label": "平台"
-                    },
-                    {
-                      "prop": "path",
-                      "label": "path"
-                    },
-                    {
-                      "prop": "crDate",
-                      "label": "创建时间"
-                    },
-                    {
-                      "prop": "upDate",
-                      "label": "更新时间"
-                    },
-                    {
-                      "prop": "infoUrl",
-                      "label": "infoUrl"
-                    }
-                  ];
                   let resultVo={
                     ijArr:result,
-                    ijTree
+                    ijTree:InjectDaoImpl.InjectColumns
                 }
                   //查询总条数
                   let sql2="SELECT COUNT(*) AS count FROM inject_test;"
