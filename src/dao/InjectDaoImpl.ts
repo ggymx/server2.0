@@ -61,8 +61,9 @@ class InjectDaoImpl implements InjectDao{
             dbConnection.query(sql,(err,result)=>{
                 if(!err){
                     //将查到的数据重新包装
+                    let ijArr:Array<Inject>=result;
                     let resultVo={
-                      ijArr:result,
+                      ijArr,
                       ijTree:InjectDaoImpl.InjectColumns
                     }
                     resolve(new Message({msg:'ok',data:resultVo,stCode:200}))
@@ -83,8 +84,9 @@ class InjectDaoImpl implements InjectDao{
         let sql1=`SELECT * FROM inject_test limit ${limit} offset ${limit*(cursor-1)}`;
         dbConnection.query(sql1,(err,result)=>{
             if(!err){
+                   let ijArr:Array<Inject>=result;
                   let resultVo={
-                    ijArr:result,
+                    ijArr,
                     ijTree:InjectDaoImpl.InjectColumns
                 }
                   //查询总条数
