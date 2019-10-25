@@ -4,10 +4,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var morgan = require("morgan");
 var LoginService_1 = require("./services/LoginService");
+var Router_1 = require("./route/Router");
 //引入mysql数据库配置
 // let dbConnection=require('./dbConfig');
 //Inject路由
-var injectR = require('./route/router');
+// let injectR=require('./route/router');
 var bodyParser = require('body-parser');
 //创建express后台应用
 var app = express();
@@ -48,7 +49,8 @@ app.get('/', function (req, res) {
 app.post('/login', loginServices.login);
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
-app.use('/inject', injectR);
+app.use('/inject', Router_1.default.injectR);
+app.use('/media', Router_1.default.mediaR);
 // 适合定义RESTful API
 //http://127.0.0.1:18000/article
 app.route('/article')

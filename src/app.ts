@@ -2,13 +2,12 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
 import LoginServices from './services/LoginService';
-
+import Router from './route/Router';
 //引入mysql数据库配置
 // let dbConnection=require('./dbConfig');
 //Inject路由
-let injectR=require('./route/router');
+// let injectR=require('./route/router');
 let bodyParser=require('body-parser');
-
 //创建express后台应用
 let app = express();
 
@@ -55,8 +54,8 @@ app.get('/', (req,res)=>{
 app.post('/login',loginServices.login);
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
-app.use('/inject', injectR);
-
+app.use('/inject', Router.injectR);
+app.use('/media', Router.mediaR);
 
 // 适合定义RESTful API
 //http://127.0.0.1:18000/article

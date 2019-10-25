@@ -22,5 +22,5 @@ class DBConnection{
     }
 }
 
-var connection=DBConnection.getConnection();
+let connection=DBConnection.getConnection();
 export default connection;

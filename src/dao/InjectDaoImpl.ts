@@ -90,7 +90,7 @@ class InjectDaoImpl implements InjectDao{
                     ijTree:InjectDaoImpl.InjectColumns
                 }
                   //查询总条数
-                  let sql2="SELECT COUNT(*) AS count FROM inject_test;"
+                  let sql2="SELECT COUNT(*) AS count FROM inject_test";
                   dbConnection.query(sql2,(err,result2)=>{
                       if(!err){
                          (resultVo as any).count=result2[0].count,
