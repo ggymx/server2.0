@@ -3,20 +3,21 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import LoginServices from './services/LoginService';
 import Router from './route/Router';
-//引入mysql数据库配置
-// let dbConnection=require('./dbConfig');
-//Inject路由
-// let injectR=require('./route/router');
-let bodyParser=require('body-parser');
+
+//POST请求在 express 中不能直接获得，需要安装 body-parser模块
+  // parse application/x-www-form-urlencoded  
+const bodyParser=require('body-parser');
+
+// const cookieParser = require('cookie-parser');
 //创建express后台应用
 let app = express();
-
+// var cookie = require('cookie-parser');
 // 中间件
 app.use(express.static('./public'));
 app.use(morgan());
 
-//POST请求在 express 中不能直接获得，需要安装 body-parser模块
-  // parse application/x-www-form-urlencoded  
+// app.use(cookieParser());
+
   app.use(bodyParser.urlencoded({ extended: false })); //这行代码也必须添加   
   // parse application/json  
   app.use(bodyParser.json()); 
@@ -49,6 +50,7 @@ app.get('/', (req,res)=>{
     res.end('express app start');
     //   res.sendFile('D:/server2.0/build/view/index.html');
 });
+// app.use('/', express.static('../view/index.html'));
 
 //http://127.0.0.1:1360/login?username='gg'&&pwd='gegan'
 app.post('/login',loginServices.login);

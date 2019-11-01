@@ -3,6 +3,8 @@
 // import LoginDao from '../dao/LoginDao';
 // import LoginDaoImpl from '../dao/LoginDaoImpl';
 import DaoFactory from '../factory/DaoFactory';
+// var cookie = require('cookie-parser');
+
 let loginDaoImpl=DaoFactory.produceLoginDao();
 class LoginServices{
     /**处理用户登录 */
@@ -30,7 +32,17 @@ class LoginServices{
             return;
         });
         console.log('查表数据login-data---',data);
-        response.json(data);
+        if(data){
+            // response.cookie('cart', { items: [1,2,3] }, { maxAge: 10000*4,signed:true,httpOnly:true });
+            // response.cookie('username', "gegan", { maxAge: 10000*2,signed:true});
+            // response.cookie('age', "大白",{ maxAge: 10000*3,signed:true });
+
+            // console.log('cookie------',request.cookie);
+            // console.log('cookie------cart',request.signedCookies.cart);
+            // console.log('cookie------username',request.signedCookies.username);
+            // console.log('cookie------age',request.signedCookies.age);
+            response.json(data);
+        }
     }
 }
 
