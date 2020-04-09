@@ -12,6 +12,15 @@ class InjectService{
     //     })
     // }
     async queryInject(request,response){
+        const token = request.body.token || request.query.token || request.headers['x-access-token'];
+        console.log('验证token是否存在-------',token);
+        if(!token){
+            // this.msg=msg;
+            // this.data=data;
+            // this.stCode=stCode;
+            response.json({msg:'未发送token',data:null,stCode:403}); 
+            return;      
+        }
         //分页指针和分页大小
         let cursor = (request.query as any).cursor;
         let limit = (request.query as any).limit;

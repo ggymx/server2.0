@@ -8,6 +8,8 @@ var Router_1 = require("./route/Router");
 //POST请求在 express 中不能直接获得，需要安装 body-parser模块
 // parse application/x-www-form-urlencoded  
 var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
+var port = 6066;
 // const cookieParser = require('cookie-parser');
 //创建express后台应用
 var app = express();
@@ -22,7 +24,7 @@ app.use(bodyParser.json());
 var loginServices = new LoginService_1.default();
 app.all('*', function (req, res, next) {
     //解决跨域
-    res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Origin", "*");
     //为什么vue启动得服务还需要加上这句
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     //预检请求发送的间隔
@@ -46,7 +48,7 @@ app.get('/', function (req, res) {
 });
 // app.use('/', express.static('../view/index.html'));
 //http://127.0.0.1:1360/login?username='gg'&&pwd='gegan'
-app.post('/login', loginServices.login);
+app.post('/login', function (req, res) { console.log('登录凭证---------', jwt); loginServices.login(req, res, jwt); });
 // post为基础路径  http://127.0.0.1:18000/post
 // 适用于同一个路由下的多个子路由
 app.use('/inject', Router_1.default.injectR);
@@ -59,6 +61,10 @@ app.route('/article')
 })
     .post(function (req, res) {
     res.end('route /articl post');
+});
+app.get('/champion/test', function (req, res) {
+    console.log('测试接收', req.query);
+    res.json({ msg: 'ok', data: { username: 'gegan', pwd: null } });
 });
 // http:127.0.0.1:18000/news/123
 // 路由参数
@@ -75,8 +81,8 @@ app.get('/news/:newsId', function (req, res) {
     console.log('监听请求：/news/:newsId:');
     res.end('newsId:' + req.newsId + '\n');
 });
-app.listen(8070, function () {
-    console.log('访问URL：http://127.0.0.1:8070');
+app.listen(port, function () {
+    console.log("\u8BBF\u95EEURL\uFF1Ahttp://127.0.0.1:" + port);
 });
 // var debug = require('debug')('my-application'); // debug模块
 // app.set('port', process.env.PORT || 3000); // 设定监听端口
