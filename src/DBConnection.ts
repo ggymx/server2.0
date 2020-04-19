@@ -2,7 +2,7 @@ import * as mysql from 'mysql';
 class DBConnection{
     public static mysql:object={
         host: "localhost", //这是数据库的地址
-        port: "3308",
+        port: "3306",
         user: "root", //需要用户的名字
         password: "root", //用户密码 ，如果你没有密码，直接双引号就是
         database: "mediasys"

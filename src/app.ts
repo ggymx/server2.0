@@ -7,7 +7,11 @@ import Router from './route/Router';
 //POST请求在 express 中不能直接获得，需要安装 body-parser模块
   // parse application/x-www-form-urlencoded  
 const bodyParser=require('body-parser');
+//获取token
 const jwt=require('jsonwebtoken');
+//获取cookie
+const cookieParser= require('cookie-parser');
+
 const port=6066;
 // const cookieParser = require('cookie-parser');
 //创建express后台应用
@@ -16,18 +20,20 @@ let app = express();
 // 中间件
 app.use(express.static('./public'));
 app.use(morgan());
-
 // app.use(cookieParser());
-
-  app.use(bodyParser.urlencoded({ extended: false })); //这行代码也必须添加   
-  // parse application/json  
-  app.use(bodyParser.json()); 
-
+app.use(bodyParser.urlencoded({ extended: false })); //这行代码也必须添加   
+// parse application/json  
+app.use(bodyParser.json()); 
+app.use(cookieParser());
 let loginServices=new LoginServices();
 
 app.all('*',function (req, res, next) {
     //解决跨域
     // res.header("Access-Control-Allow-Origin", "*");
+    //允许客户端跨域携带cookie，需要显示指定客户端域名
+    // res.header("Access-Control-Allow-Origin","http://localhost:9001");
+    // res.header("Access-Control-Allow-Credentials", "true");
+    //header('Access-Control-Allow-Headers: Content-Type,Access-Token');
     //为什么vue启动得服务还需要加上这句
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     //预检请求发送的间隔
@@ -71,7 +77,8 @@ app.route('/article')
 });
 
 app.get('/champion/test',(req,res)=>{
-    console.log('测试接收',req.query);
+    console.log('客户端传入参数',req.query);
+    console.log('客户端携带cookie',req.cookies['user']);
     res.json({msg:'ok',data:{username:'gegan',pwd:null}});
 })
 // http:127.0.0.1:18000/news/123
